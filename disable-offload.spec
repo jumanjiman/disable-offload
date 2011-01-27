@@ -39,6 +39,7 @@ Behavior is controlled via SysV-style init script.
 %files
 %defattr(-,root,root,-)
 %doc README
+%doc COPYING.GPLv3
 %{_sbindir}/disable-offload
 %{_sysconfdir}/rc.d/init.d/disable-offload
 
