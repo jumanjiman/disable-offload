@@ -1,0 +1,57 @@
+#!/bin/bash
+
+function usage() {
+  cat >&2 <<- EOF
+	Usage: $(basename $0) [-h] [-V]
+	  -h help (this screen)
+	  -V verify that offload is disabled on all NICs
+	EOF
+}
+
+# tunables
+offloads="rx tx sg tso ufo gso gro lro rxhash"
+desired_state="off"
+tag="disable_offload"
+
+# defaults
+change_settings=true
+_rc=0
+
+while getopts "Vh" option
+do
+  case $option in
+    V ) change_settings=false;;
+    h ) usage; exit 0;;
+    * ) usage; exit 1;;
+  esac
+done
+
+shift $(($OPTIND - 1))
+#  Decrements the argument pointer so it points to next argument.
+#  $1 now references the first non option item supplied on the command line
+#  if one exists.
+if [[ -n ${1} ]]; then
+  usage
+  exit 1
+fi
+
+for _num in {0..9}; do
+  dev=eth${_num}
+  ip link show $dev &> /dev/null || continue
+
+  if [ $change_settings = "true" ]; then
+    for offload in $offloads; do
+      # this works for privileged user only (e.g. uid=0)
+      ethtool -K $dev $offload $desired_state &> /dev/null
+    done
+  fi
+
+  # check if we disabled everything (works for unpriv users)
+  _count=$(ethtool -k $dev 2> /dev/null | grep '\bon\b' 2> /dev/null | wc -l)
+  if [ $_count -ne 0 ]; then
+    logger -st $tag "error: one or more offload settings are still enabled"
+    _rc=1
+  fi
+done
+
+exit $_rc
