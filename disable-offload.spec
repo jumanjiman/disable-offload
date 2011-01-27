@@ -52,4 +52,7 @@ fi
 
 
 %changelog
+* Thu Jan 27 2011 Paul Morgan <jumanjiman@gmail.com> 0.1-1
+- initial package
+
 
