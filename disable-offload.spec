@@ -5,9 +5,10 @@ Summary:	Disables NIC offload settings at boot-time
 
 Group:		System Environment/Base
 License:	GPLv3+
-URL:		
+URL:		https://github.com/jumanjiman/disable-offload
 Source0:	%{name}-%{version}.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+BuildArch:	noarch
 
 Requires:	ethtool
 
