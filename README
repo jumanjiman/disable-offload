@@ -1,0 +1,11 @@
+Provides: a SysV-style init script and a supporting admin script.
+Purpose: disable Ethernet offload settings at boot time, if desired.
+
+Usage:
+* install "disable-offload" rpm
+* chkconfig disable-offload on
+* service disable-offload start
+
+Known issues:
+* Does not store initial state of offload settings,
+  so "service disable-offload stop" does not re-enable offload
