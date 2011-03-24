@@ -50,6 +50,20 @@ if [ $1 -eq 0 ]; then
   chkconfig --del disable-offload || :
 fi
 
+%post
+if [ $1 -gt 0 ]; then
+  /sbin/chkconfig disable-offload --add || :
+  /sbin/chkconfig disable-offload on || :
+  grep 'ks=' /proc/cmdline &> /dev/null
+  if [ $? -eq 0 ]; then
+    # kickstarting
+    :
+  else
+    # not kickstarting
+    /sbin/service disable-offload start || :
+  fi
+fi
+
 
 %changelog
 * Thu Jan 27 2011 Paul Morgan <jumanjiman@gmail.com> 0.1-1
