@@ -66,6 +66,9 @@ fi
 
 
 %changelog
+* Thu Mar 24 2011 Paul Morgan <jumanjiman@gmail.com> 0.1-2
+- enable init-script for boot-time (jumanjiman@gmail.com)
+
 * Thu Jan 27 2011 Paul Morgan <jumanjiman@gmail.com> 0.1-1
 - initial package
 
