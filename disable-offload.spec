@@ -1,6 +1,6 @@
 Name:		disable-offload
 Version:	0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Disables NIC offload settings at boot-time
 
 Group:		System Environment/Base
