@@ -1,6 +1,6 @@
 Name:		disable-offload
-Version:	0.1
-Release:	2%{?dist}
+Version:	0.2
+Release:	1%{?dist}
 Summary:	Disables NIC offload settings at boot-time
 
 Group:		System Environment/Base
@@ -67,6 +67,9 @@ fi
 
 
 %changelog
+* Wed Dec 19 2012 Paul Morgan <jumanjiman@gmail.com> 0.2-1
+- wait until network is active to disable offload
+
 * Thu Mar 24 2011 Paul Morgan <jumanjiman@gmail.com> 0.1-2
 - enable init-script for boot-time (jumanjiman@gmail.com)
 
