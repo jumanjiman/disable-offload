@@ -53,6 +53,7 @@ fi
 %post
 if [ $1 -gt 0 ]; then
   /sbin/chkconfig disable-offload --add || :
+  /sbin/chkconfig disable-offload --resetpriorities || :
   /sbin/chkconfig disable-offload on || :
   grep 'ks=' /proc/cmdline &> /dev/null
   if [ $? -eq 0 ]; then

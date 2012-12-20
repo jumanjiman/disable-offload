@@ -4,7 +4,7 @@
 #
 #	Disables network offload on ethernet devices.
 #
-# chkconfig: 2345 10 90
+# chkconfig: 2345 11 90
 # description: Runs /usr/sbin/disable-offload to 
 #              disable all NIC offload settings, such as
 #              TSO, GRO, etc. 
