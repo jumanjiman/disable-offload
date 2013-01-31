@@ -1,5 +1,5 @@
 Name:		disable-offload
-Version:	0.2
+Version:	0.3
 Release:	1%{?dist}
 Summary:	Disables NIC offload settings at boot-time
 
@@ -67,6 +67,9 @@ fi
 
 
 %changelog
+* Thu Jan 31 2013 Paul Morgan <jumanjiman@gmail.com> 0.3-1
+- work around bug in bnx2x firmware
+
 * Wed Dec 19 2012 Paul Morgan <jumanjiman@gmail.com> 0.2-1
 - wait until network is active to disable offload
 
