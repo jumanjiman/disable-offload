@@ -46,9 +46,21 @@ for _num in {0..9}; do
     done
   fi
 
+  # check if we have bnx2x so we can skip the check for tx-checksumming
+  # since we need a recent firmware in order to disable tx-checksumming
+  # http://delivery04.dhe.ibm.com/sar/CMA/XSA/035pg/1/brcm_dd_nic_nx2-2.1.12c-1.70.40_rhel5_32-64.chg
+  ethtool -i $dev 2> /dev/null | grep 'driver: bnx2x' &> /dev/null
+  bnx2x=$?
+
   # check if we disabled everything (works for unpriv users)
-  _count=$(ethtool -k $dev 2> /dev/null | grep '\bon\b' 2> /dev/null | wc -l)
-  if [ $_count -ne 0 ]; then
+  if [[ $bnx2x ]]; then
+    _count=$(ethtool -k $dev 2> /dev/null | grep -v 'tx-checksumming' 2> /dev/null | grep '\bon\b' 2> /dev/null | wc -l)
+  else
+    _count=$(ethtool -k $dev 2> /dev/null | grep '\bon\b' 2> /dev/null | wc -l)
+  fi
+  if [ $_count -eq 0 ]; then
+    _rc=0
+  else
     logger -st $tag "error: one or more offload settings are still enabled"
     _rc=1
   fi
